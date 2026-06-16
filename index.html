@@ -2,253 +2,651 @@
 <html lang="fa">
 <head>
 <meta charset="UTF-8">
-<title>جشنواره خوارزمی</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>جشنواره خوارزمی - هلنا رزم | بازی حافظه ریاضی</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap" rel="stylesheet">
-
 <style>
-body{
-    margin:0;
-    font-family:'Vazirmatn', sans-serif;
-    background: linear-gradient(135deg,#ffd6e8,#d6f0ff,#e6d6ff);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
 }
 
-.screen{
-    text-align:center;
-    max-width:400px;
+body {
+    font-family: 'Vazirmatn', sans-serif;
+  
+    background: url('https://github.com/Liaaaahhhh/helenarazm-kharazmi/blob/31bd727d7d1630b4fe0fb084072714c22def1e00/2023-5-01fd4b4d-d53c-487b-8cf8-523b55b3379a-67c46114c1067c5ba76840b9.webp.jpeg'), no-repeat center center fixed;
+  
+    background-size: cover;
+    background-attachment: fixed;
+    background-blend-mode: overlay;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
 }
 
-h1{
-    font-family:'Noto Nastaliq Urdu', serif;
-    font-size:48px;
-    color:#6a4c93;
+.screen, #game {
+    text-align: center;
+    max-width: 550px;
+    width: 100%;
+    background: rgba(255, 248, 240, 0.92);
+    border-radius: 48px;
+    padding: 20px 25px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.4);
+    transition: 0.3s;
+    border: 1px solid rgba(255,255,200,0.6);
 }
 
-h2{
-    font-family:'Noto Nastaliq Urdu', serif;
-    font-size:22px;
-    color:#444;
+h1 {
+    font-family: 'Noto Nastaliq Urdu', serif;
+    font-size: 52px;
+    color: #b7416e;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 5px;
 }
 
-button{
-    padding:12px 30px;
-    border:none;
-    border-radius:20px;
-    background:#ffb3c6;
-    font-size:18px;
-    cursor:pointer;
-    margin-top:15px;
+h2 {
+    font-size: 18px;
+    color: #4a2e3a;
+    border-bottom: 2px dashed #d49c6c;
+    display: inline-block;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
 }
 
-.small-btn{
-    padding:6px 15px;
-    font-size:14px;
-    background:#d8caff;
+button {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 60px;
+    background: #f7bcb9;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 8px;
+    transition: 0.25s;
+    color: #2c1a2d;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.1);
 }
 
-#projectInfo{
-    display:none;
-    margin-top:15px;
-    background:#ffffffcc;
-    padding:15px;
-    border-radius:15px;
-    font-size:14px;
-    text-align:justify;
-    line-height:1.8;
+button:hover {
+    transform: scale(1.02);
+    background: #ffa39e;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
-#highScore{
-    margin-top:10px;
-    font-size:14px;
+.small-btn {
+    padding: 8px 20px;
+    font-size: 14px;
+    background: #cfb0e0;
 }
 
-#game{
-    display:none;
-    flex-direction:column;
-    align-items:center;
+#projectInfo {
+    display: none;
+    margin-top: 18px;
+    background: #fffaf3dd;
+    padding: 20px;
+    border-radius: 28px;
+    font-size: 14px;
+    text-align: justify;
+    line-height: 1.9;
+    max-height: 320px;
+    overflow-y: auto;
+    border-right: 6px solid #b9825e;
 }
 
-.grid{
-    display:grid;
-    grid-template-columns: repeat(4,80px);
-    gap:10px;
-    margin-top:20px;
+#highScoreBox {
+    margin-top: 18px;
+    background: #ecd9c6bb;
+    padding: 12px;
+    border-radius: 35px;
+    font-weight: 500;
+    backdrop-filter: blur(4px);
 }
 
-.card{
-    width:80px;
-    height:80px;
-    background:#ffffffcc;
-    border-radius:15px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:18px;
-    cursor:pointer;
-    transition:0.3s;
+#bestRecordsList {
+    margin-top: 12px;
+    max-height: 170px;
+    overflow-y: auto;
 }
 
-.card:hover{
-    transform:scale(1.05);
+.record-item {
+    background: #fff3e8;
+    margin: 8px;
+    padding: 8px 15px;
+    border-radius: 45px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
 }
 
-.hidden{
-    visibility:hidden;
+#game {
+    display: none;
+    flex-direction: column;
 }
 
-#timer{
-    margin-top:15px;
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.game-stats {
+    display: flex;
+    gap: 25px;
+    background: #f7e8dbcc;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: bold;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 85px);
+    gap: 12px;
+    margin-top: 15px;
+    justify-content: center;
+}
+
+.card {
+    width: 85px;
+    height: 85px;
+    background: #fffbf0;
+    border-radius: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    text-align: center;
+    padding: 6px;
+    box-shadow: 0 6px 0 #c2a28b;
+    color: #2d3e50;
+    border: 1px solid #ffe3c9;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 9px 0 #b4815a;
+}
+
+.hidden {
+    visibility: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transform: scale(0.85);
+    transition: 0.2s;
+}
+
+#timer {
+    font-size: 22px;
+    font-weight: 800;
+    font-family: monospace;
+    background: #2c2e3f;
+    padding: 2px 12px;
+    border-radius: 30px;
+    color: #f9f3d9;
+}
+
+#errorCount {
+    font-size: 22px;
+    color: #c7362b;
+    font-weight: bold;
+}
+
+.back-btn {
+    background: #a7c5bd;
+    padding: 8px 22px;
+}
+
+.back-btn:hover {
+    background: #8fb4aa;
+}
+
+@media (max-width: 480px) {
+    .grid {
+        grid-template-columns: repeat(4, 70px);
+        gap: 8px;
+    }
+    .card {
+        width: 70px;
+        height: 70px;
+        font-size: 14px;
+    }
+    .game-header {
+        flex-direction: column;
+    }
+    h1 {
+        font-size: 40px;
+    }
 }
 </style>
 </head>
-
 <body>
 
+<!-- صفحه شروع -->
 <div id="startScreen" class="screen">
     <h1>جشنواره خوارزمی</h1>
     <h2>هلنا رزم – کلاس هشتم</h2>
-
-    <button onclick="startGame()">شروع</button>
-    <div id="highScore">بهترین زمان: --</div>
-
-    <button class="small-btn" onclick="toggleInfo()">توضیح و راهنمای پروژه</button>
-
+    <button onclick="askUserNameAndStart()">✨ شروع بازی ✨</button>
+    <div id="highScoreBox">
+        <div>🏆 بهترین رکورد کلی: <span id="globalBest">---</span></div>
+        <div>👤 بهترین رکورد شما: <span id="userBest">---</span></div>
+    </div>
+    <div>
+        <button class="small-btn" onclick="toggleInfo()">📖 راهنمای بازی</button>
+        <button class="small-btn" onclick="showBestRecords()">🏅 بهترین رکوردها</button>
+    </div>
     <div id="projectInfo">
-        من همیشه به این فکر می‌کردم که چرا بسیاری از دانش‌آموزان از ریاضی می‌ترسند،
-        در حالی که ریاضی می‌تواند بسیار زیبا و خلاقانه باشد.
-
-        ایده این پروژه از علاقه من به ترکیب هنر (طراحی بصری پاستلی)
-        و منطق ریاضی شکل گرفت.
-
-        هدف من این بود که نشان دهم ریاضی می‌تواند بازی‌محور باشد،
-        مفاهیم عددی به صورت عمیق‌تر در ذهن تثبیت شوند
-         و یادگیری با لذت همراه شود.
-	طریقه بازی به این صورت است که باید اعداد مساوی را به هم با کلیک کردن
-	متصل کنیم تا جایی که تمام مربع ها تمام شوند.
-
-        این بازی نمونه‌ای کوچک از این ایده است که آموزش می‌تواند
-        همزمان علمی، خلاقانه و جذاب باشد.
+        <b>به نام خداوند جان و خرد</b><br>
+        <i>کزین برتر اندیشه را راه نگذرد</i><br><br>
+        این بازی با هدف تقویت مهارت‌های محاسبات ذهنی و افزایش سرعت عمل در حل عبارات ریاضی، ویژه دانش‌آموزان دوره اول متوسطه طراحی شده است.<br><br>
+        <b>🎯 هدف بازی:</b> کارت‌هایی که مقدار عددی آن‌ها برابر است را با هم جفت کنید. (اعداد ۱ تا ۱۲ و معادل منفی آن‌ها)<br>
+        ✨ نمونه جفت‌ها : <br>
+        «۵» با «√۲۵» یا «-(-۵)» یا «۱۰÷۲» یا «(۱۰/۲)» یا «۲×۲.۵» (عدد اعشاری ندارد فقط ساده به ۵ می‌رسد) <br>
+        «-۳» با «-√۹» یا «(-۶)÷۲» یا «(-۱)×۳» یا «۳-۶»<br>
+        <b>⚠️ نکته:</b> هر بار اشتباه در جفت کردن کارت‌ها، ۳ ثانیه به زمان شما اضافه می‌شود.<br>
+        🧠 این نسخه شامل اعداد منفی، توان دوم، رادیکال، ضرب و تقسیم (بدون اعشار) و فقط محدوده اعداد ۱ تا ۱۲ و معکوس منفی آن‌هاست.<br><br>
+        <i>ریاضی می‌تواند شیرین باشد، اگر آن را با هنر و بازی بیامیزیم.</i>
+    </div>
+    <div id="bestRecordsPanel" style="display:none; margin-top:15px; background:#fff4e9dd; padding:15px; border-radius:30px;">
+        <h3>🏅 بهترین رکوردهای کاربران</h3>
+        <div id="bestRecordsList"></div>
+        <button class="small-btn" onclick="document.getElementById('bestRecordsPanel').style.display='none'">بستن</button>
     </div>
 </div>
 
+<!-- صفحه بازی -->
 <div id="game">
-    <div id="timer">زمان: 0</div>
+    <div class="game-header">
+        <button class="back-btn" onclick="backToHome()">🏠 بازگشت</button>
+        <div class="game-stats">
+            <div>⏱️ زمان: <span id="timer">0.0</span></div>
+            <div>❌ خطاها: <span id="errorCount">0</span></div>
+        </div>
+    </div>
     <div class="grid" id="grid"></div>
-    <button onclick="restartGame()" style="display:none" id="restartBtn">شروع مجدد</button>
+    <button onclick="restartGame()" style="display:none; margin-top:20px;" id="restartBtn">🔄 بازی مجدد</button>
 </div>
 
 <script>
 
-let firstCard=null;
+const errorSound = new Audio();
+errorSound.src = "https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3"; // صدای نمونه (اختیاری)
+function playErrorSound() {
+    errorSound.play().catch(e => console.log("صدای خطا نیاز به تعامل دارد"));
+}
+
+// متغیرهای اصلی بازی
+let firstCard = null;
 let startTime;
 let timerInterval;
+let errorCount = 0;
+let currentUsername = "";
+let extraPenalty = 0;
+let lockBoard = false;  // قفل برد هنگام نمایش خطا
 
-function toggleInfo(){
-    let info=document.getElementById("projectInfo");
-    info.style.display = info.style.display==="none" ? "block" : "none";
-}
-
-function generateExpression(num){
-    let type=Math.floor(Math.random()*3);
-    switch(type){
-        case 0: return {display:`√${num*num}`, value:num};
-        case 1: return {display:`-(-${num})`, value:num};
-        case 2: return {display:`${num*2}/2`, value:num};
+// =============== توابع تولید عبارت ریاضی با پشتیبانی از اعداد منفی (محدوده 1 تا 12 و منفی آن) ===============
+// مقدار هدف می‌تواند بین [-12 , -1] ∪ [1,12] باشد
+function generateExpression(target) {
+    // target یک عدد صحیح غیرصفر بین -12 تا 12 به جز صفر
+    const absTarget = Math.abs(target);
+    const sign = Math.sign(target); // 1 یا -1
+    // لیستی از الگوهای مختلف برای ساخت عبارت (ضرب، تقسیم، رادیکال، توان، منفی کردن)
+    const templates = [];
+    
+    // 1. رادیکال مربع کامل (فقط اگر ریشه صحیح دارد و اعداد مثبت یا منفی)
+    const sqrtVal = Math.sqrt(absTarget);
+    if (Number.isInteger(sqrtVal) && absTarget <= 144) {
+        // √(مقدار مثبت) اگر target مثبت باشد √number و اگر منفی باشد -√number
+        if (sign === 1) templates.push(() => ({ display: `√${absTarget}`, value: target }));
+        else templates.push(() => ({ display: `-√${absTarget}`, value: target }));
     }
-}
-
-function createValues(){
-    let numbers=[];
-    while(numbers.length<8){
-        let n=Math.floor(Math.random()*9)+1;
-        if(!numbers.includes(n)) numbers.push(n);
+    
+    // 2. منفی منفی : -(-(value))
+    templates.push(() => ({ display: `-(${-target})`, value: target }));
+    
+    // 3. ضرب و تقسیم ساده با اعداد صحیح (بدون اعشار)
+    // ضرب دو عدد صحیح که حاصل برابر absTarget شود
+    for (let a = 1; a <= 12; a++) {
+        if (absTarget % a === 0) {
+            let b = absTarget / a;
+            if (Number.isInteger(b) && b <= 12 && b >= 1) {
+                if (sign === 1) templates.push(() => ({ display: `${a}×${b}`, value: target }));
+                else templates.push(() => ({ display: `-(${a}×${b})`, value: target }));
+            }
+        }
     }
-
-    let arr=[];
-    numbers.forEach(n=>{
-        arr.push({display:n, value:n});
-        arr.push(generateExpression(n));
-    });
-
-    return arr.sort(()=>Math.random()-0.5);
+    // تقسیم a / b = absTarget  =>  a = absTarget * b
+    for (let b = 1; b <= 12; b++) {
+        let a = absTarget * b;
+        if (a <= 12 && a >= 1 && Number.isInteger(a)) {
+            if (sign === 1) templates.push(() => ({ display: `${a}÷${b}`, value: target }));
+            else templates.push(() => ({ display: `-(${a}÷${b})`, value: target }));
+        }
+    }
+    
+    // تقسیم معکوس : b / a = absTarget  ( اگر a تقسیم بر b نشود)
+    for (let a = 1; a <= 12; a++) {
+        let candidate = absTarget * a;
+        if (candidate <= 12 && Number.isInteger(candidate) && candidate > 0) {
+            let b = candidate;
+            // b / a = absTarget
+            if (sign === 1) templates.push(() => ({ display: `${b}÷${a}`, value: target }));
+            else templates.push(() => ({ display: `-(${b}÷${a})`, value: target }));
+        }
+    }
+    
+    // توان دوم (فقط اگر مقدار اصلی مربع کامل نباشد ولی می‌توان نمایش 3^2 = 9)
+    if (absTarget === 4 || absTarget === 9 || absTarget === 1 || absTarget === 16 || absTarget === 25 || absTarget === 36 || absTarget === 49 || absTarget === 64 || absTarget === 81 || absTarget === 100 || absTarget === 121 || absTarget === 144) {
+        let root = Math.sqrt(absTarget);
+        if (Number.isInteger(root)) {
+            if (sign === 1) templates.push(() => ({ display: `${root}²`, value: target }));
+            else templates.push(() => ({ display: `-(${root}²)`, value: target }));
+        }
+    }
+    
+    // جمع/تفریقی که حاصل آن عدد هدف بدون اعشار (مثل 10-7 =3)
+    for (let delta = -5; delta <= 5; delta++) {
+        let x = absTarget - delta;
+        if (x >= 1 && x <= 12 && (absTarget - x) !== 0 && Math.abs(absTarget - x) <= 12) {
+            let y = absTarget - x;
+            if (y !== 0 && Math.abs(y) <= 12) {
+                if (sign === 1) templates.push(() => ({ display: `${x} + ${y}`, value: target }));
+                else templates.push(() => ({ display: `-(${x} + ${y})`, value: target }));
+            }
+        }
+    }
+    
+    // تفریق ساده a-b = target  (مثبت یا منفی)
+    for (let a = 1; a <= 12; a++) {
+        let b = a - absTarget;
+        if (b >= -12 && b <= 12 && b !== 0 && Number.isInteger(b)) {
+            if (sign === 1) templates.push(() => ({ display: `${a} - ${Math.abs(b)}`, value: target }));
+            else templates.push(() => ({ display: `-(${a} - ${Math.abs(b)})`, value: target }));
+        }
+    }
+    // تفریق به گونه‌ای که حاصل منفی شود برای target منفی: a - b = target منفی
+    if (sign === -1) {
+        for (let a = 1; a <= 12; a++) {
+            let b = a - absTarget;
+            if (b >= 1 && b <= 12 && (a - b) === -absTarget) {
+                templates.push(() => ({ display: `${a} - ${b}`, value: target }));
+            }
+        }
+    }
+    
+    // ضرب با اعداد منفی مستقیم مثل (-3)×2 = -6
+    for (let a = 1; a <= 12; a++) {
+        if (absTarget % a === 0) {
+            let b = absTarget / a;
+            if (Number.isInteger(b) && b <= 12 && b >= 1) {
+                if (sign === -1) templates.push(() => ({ display: `(-${a})×${b}`, value: target }));
+                else templates.push(() => ({ display: `${a}×(-${b})`, value: target }));
+            }
+        }
+    }
+    
+    // تقسیم با اعداد منفی
+    for (let b = 1; b <= 12; b++) {
+        let a = absTarget * b;
+        if (a <= 12 && a >= 1) {
+            if (sign === -1) templates.push(() => ({ display: `(-${a})÷${b}`, value: target }));
+            else templates.push(() => ({ display: `${a}÷(-${b})`, value: target }));
+        }
+    }
+    
+    // نمایش ساده عدد (در صورت لزوم)
+    templates.push(() => ({ display: `${target}`, value: target }));
+    
+    // گاهی عبارت های ترکیبی: مثل -(-(-(-n))) ولی ساده -(-x) را داریم
+    if (Math.random() > 0.7) {
+        templates.push(() => ({ display: `-(${Math.abs(target)})`, value: target }));
+    }
+    
+    // انتخاب تصادفی از میان تمپلیت‌ها (تکراری نباشد)
+    const randomIndex = Math.floor(Math.random() * templates.length);
+    return templates[randomIndex]();
 }
 
-function startGame(){
-    document.getElementById("startScreen").style.display="none";
-    document.getElementById("game").style.display="flex";
-    document.getElementById("restartBtn").style.display="none";
+// ساخت 8 جفت (16 کارت) شامل اعداد تصادفی 1 تا 12 و همچنین اعداد منفی تصادفی متناظر با همان بازه
+function createMixedValues() {
+    // مجموعه اعداد پایه: 8 عدد مثبت و 8 عدد منفی مجزا اما به گونه‌ای که هر عدد اصلی (مثبت) جفت منفی جداگانه هم داشته باشد یا خودش جفت با عبارت
+    // اما هدف ایجاد 8 جفت شامل اعداد مثبت و منفی ولی هر جفت مقدار یکسان دارد.
+    // استراتژی: انتخاب 8 مقدار منحصربفرد از مجموعه {1..12} و همچنین 8 مقدار منفی از {-1,-2,...,-12} هر کدام یک جفت می‌شوند؟
+    // برای جذابیت: نیمی جفت مثبت و نیمی جفت منفی ولی کاملا تصادفی 
+    let selectedValues = [];
+    let usedNumbers = new Set();
+    // انتخاب 4 عدد مثبت متفاوت و 4 عدد منفی متفاوت
+    let positiveCandidates = [];
+    for (let i = 1; i <= 12; i++) positiveCandidates.push(i);
+    for (let i = 0; i < 4; i++) {
+        let randIdx = Math.floor(Math.random() * positiveCandidates.length);
+        let val = positiveCandidates[randIdx];
+        positiveCandidates.splice(randIdx, 1);
+        selectedValues.push(val);
+        usedNumbers.add(val);
+    }
+    let negativeCandidates = [];
+    for (let i = -12; i <= -1; i++) negativeCandidates.push(i);
+    for (let i = 0; i < 4; i++) {
+        let randIdx = Math.floor(Math.random() * negativeCandidates.length);
+        let val = negativeCandidates[randIdx];
+        negativeCandidates.splice(randIdx, 1);
+        selectedValues.push(val);
+        usedNumbers.add(val);
+    }
+    // اگر هنوز 8 مقدار کامل نشده باقیمانده با عدد پر کنیم
+    while(selectedValues.length < 8) {
+        let extra = Math.floor(Math.random() * 24) - 12; // -12..12 به جز صفر
+        if(extra !== 0 && !usedNumbers.has(extra)) {
+            selectedValues.push(extra);
+            usedNumbers.add(extra);
+        }
+    }
+    
+    // الان selectedValues شامل ۸ مقدار (مثبت و منفی) است. برای هر کدام یک کارت عدد ساده و یک کارت عبارت تولید می‌کنیم
+    let deck = [];
+    for (let v of selectedValues) {
+        // کارت اول: نمایش عدد حقیقی
+        deck.push({ display: v.toString(), value: v });
+        // کارت دوم: عبارت ریاضی که مقدار آن برابر v است (بدون اعشار)
+        deck.push(generateExpression(v));
+    }
+    // شافل کردن آرایه
+    for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+    return deck;
+}
 
-    const grid=document.getElementById("grid");
-    grid.innerHTML="";
-    let values=createValues();
+// اضافه کردن خطا و جریمه
+function addError() {
+    if (lockBoard) return;
+    errorCount++;
+    document.getElementById("errorCount").innerText = errorCount;
+    extraPenalty += 3;
+    playErrorSound();
+    let timerDiv = document.getElementById("timer");
+    timerDiv.style.color = "#e34d3b";
+    setTimeout(() => timerDiv.style.color = "", 400);
+}
 
-    values.forEach(item=>{
-        const div=document.createElement("div");
-        div.classList.add("card");
-        div.innerText=item.display;
-        div.dataset.value=item.value;
-        div.onclick=()=>selectCard(div);
+// دریافت زمان لحظه‌ای با در نظر گرفتن پنالتی
+function getCurrentTime() {
+    if (!startTime) return "0";
+    return ((Date.now() - startTime) / 1000 + extraPenalty).toFixed(1);
+}
+
+function updateTimerDisplay() {
+    document.getElementById("timer").innerText = getCurrentTime();
+}
+
+function updateTimerInterval() {
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+        if (document.getElementById("game").style.display === "flex") {
+            updateTimerDisplay();
+        }
+    }, 100);
+}
+
+// منطق اصلی بازی
+function startGameLogic() {
+    document.getElementById("startScreen").style.display = "none";
+    document.getElementById("game").style.display = "flex";
+    document.getElementById("restartBtn").style.display = "none";
+    firstCard = null;
+    errorCount = 0;
+    extraPenalty = 0;
+    lockBoard = false;
+    document.getElementById("errorCount").innerText = "0";
+    const grid = document.getElementById("grid");
+    grid.innerHTML = "";
+    const newDeck = createMixedValues();
+    newDeck.forEach((item, idx) => {
+        const div = document.createElement("div");
+        div.className = "card";
+        div.innerText = item.display;
+        div.dataset.value = item.value;
+        div.onclick = () => selectCard(div);
         grid.appendChild(div);
     });
-
-    startTime=Date.now();
-    timerInterval=setInterval(updateTimer,100);
+    startTime = Date.now();
+    updateTimerInterval();
 }
 
-function updateTimer(){
-    let time=((Date.now()-startTime)/1000).toFixed(1);
-    document.getElementById("timer").innerText="زمان: "+time;
-}
+function selectCard(card) {
+    if (lockBoard) return;
+    if (card.classList.contains("hidden")) return;
+    if (firstCard === card) return;
 
-function selectCard(card){
-    if(firstCard===null){
-        firstCard=card;
-        card.style.background="#ffe5ec";
-    }else{
-        if(firstCard.dataset.value==card.dataset.value && firstCard!==card){
+    if (!firstCard) {
+        firstCard = card;
+        card.style.background = "#ffe1c6";
+    } else {
+        // بررسی جفت
+        const val1 = firstCard.dataset.value;
+        const val2 = card.dataset.value;
+        // مقایسه عددی (هر دو باید یکسان باشند)
+        if (parseFloat(val1) === parseFloat(val2)) {
+            // جفت صحیح
             firstCard.classList.add("hidden");
             card.classList.add("hidden");
-            checkWin();
+            firstCard.style.background = "";
+            firstCard = null;
+            // برنده شدن؟ بررسی تمام کارت‌های پنهان
+            const visibleCards = document.querySelectorAll("#grid .card:not(.hidden)");
+            if (visibleCards.length === 0) {
+                clearInterval(timerInterval);
+                const finalTime = parseFloat(getCurrentTime());
+                saveRecord(currentUsername, finalTime);
+                alert(`🎉 آفرین ${currentUsername}! 🎉\nزمان نهایی: ${finalTime.toFixed(1)} ثانیه\n❌ خطاها: ${errorCount}`);
+                updateHighScoreDisplay();
+                document.getElementById("restartBtn").style.display = "block";
+            }
+        } else {
+            // خطا
+            addError();
+            lockBoard = true;
+            const tempFirst = firstCard;
+            const tempSecond = card;
+            tempFirst.style.background = "#e2846b";
+            tempSecond.style.background = "#e2846b";
+            setTimeout(() => {
+                if (tempFirst) tempFirst.style.background = "";
+                if (tempSecond) tempSecond.style.background = "";
+                firstCard = null;
+                lockBoard = false;
+            }, 500);
+            firstCard = null;
         }
-        firstCard.style.background="#ffffffcc";
-        firstCard=null;
     }
 }
 
-function checkWin(){
-    const cards=document.querySelectorAll(".card:not(.hidden)");
-    if(cards.length===0){
-        clearInterval(timerInterval);
-        let finalTime=((Date.now()-startTime)/1000).toFixed(1);
-        let best=localStorage.getItem("bestTime");
+// ذخیره رکورد
+function saveRecord(username, time) {
+    let records = JSON.parse(localStorage.getItem("mathGameRecords_v2")) || {};
+    if (!records[username] || time < records[username]) records[username] = time;
+    localStorage.setItem("mathGameRecords_v2", JSON.stringify(records));
+}
 
-        if(!best || finalTime<best){
-            localStorage.setItem("bestTime",finalTime);
-            best=finalTime;
+function getBestTimeForUser(username) {
+    let records = JSON.parse(localStorage.getItem("mathGameRecords_v2")) || {};
+    return records[username] || null;
+}
+
+function getGlobalBest() {
+    let records = JSON.parse(localStorage.getItem("mathGameRecords_v2")) || {};
+    let best = null, bestUser = null;
+    for (let u in records) {
+        if (best === null || records[u] < best) {
+            best = records[u];
+            bestUser = u;
         }
+    }
+    return { user: bestUser, time: best };
+}
 
-        alert(`آفرین 🌸 رکورد شما ${finalTime} ثانیه بود`);
-        document.getElementById("highScore").innerText="بهترین زمان: "+best+" ثانیه";
-        document.getElementById("restartBtn").style.display="block";
+function updateHighScoreDisplay() {
+    let g = getGlobalBest();
+    document.getElementById("globalBest").innerHTML = g.time ? `${g.time.toFixed(1)} ثانیه (${g.user})` : "---";
+    if (currentUsername) {
+        let ub = getBestTimeForUser(currentUsername);
+        document.getElementById("userBest").innerHTML = ub ? `${ub.toFixed(1)} ثانیه` : "---";
     }
 }
 
-function restartGame(){
-    startGame();
+function showBestRecords() {
+    let records = JSON.parse(localStorage.getItem("mathGameRecords_v2")) || {};
+    let list = [];
+    for (let u in records) list.push({ user: u, time: records[u] });
+    list.sort((a, b) => a.time - b.time);
+    const container = document.getElementById("bestRecordsList");
+    container.innerHTML = list.length ? list.map((item, i) => `<div class="record-item"><span>${i+1}. ${item.user}</span><span>${item.time.toFixed(1)} ثانیه</span></div>`).join("") : "<p>هنوز رکوردی ثبت نشده</p>";
+    document.getElementById("bestRecordsPanel").style.display = "block";
 }
 
-window.onload=function(){
-    let best=localStorage.getItem("bestTime");
-    if(best){
-        document.getElementById("highScore").innerText="بهترین زمان: "+best+" ثانیه";
-    }
+function askUserNameAndStart() {
+    let name = prompt("لطفاً نام خود را وارد کنید:", "ریاضی‌دوست");
+    currentUsername = (name && name.trim()) ? name.trim() : "مهمان";
+    updateHighScoreDisplay();
+    startGameLogic();
 }
 
+function restartGame() {
+    if (timerInterval) clearInterval(timerInterval);
+    startGameLogic();
+}
+
+function backToHome() {
+    clearInterval(timerInterval);
+    document.getElementById("game").style.display = "none";
+    document.getElementById("startScreen").style.display = "block";
+    if (firstCard) firstCard = null;
+    lockBoard = false;
+    updateHighScoreDisplay();
+}
+
+function toggleInfo() {
+    let info = document.getElementById("projectInfo");
+    info.style.display = info.style.display === "none" ? "block" : "none";
+}
+
+window.onload = () => {
+    updateHighScoreDisplay();
+};
 </script>
 </body>
 </html>
